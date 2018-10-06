@@ -1,0 +1,65 @@
+{% extends "home.html" %}
+
+{% block content%}
+<div class="container">
+    <table class="table table-condensed"  id="myTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Credit</th>
+            <th>Debit</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody class="panel">
+        <tr data-toggle="collapse" data-target="#demo1" data-parent="#myTable">
+            <td>1</td>
+            <td>05 May 2013</td>
+            <td>Credit Account</td>
+            <td class="text-success">$150.00</td>
+            <td class="text-error"></td>
+            <td class="text-success">$150.00</td>
+        </tr>
+        <tr id="demo1" class="collapse">
+            <td colspan="6" class="hiddenRow">
+              <table class="table table-condensed">Demo1
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Credit</th>
+                  <th>Debit</th>
+                  <th>Balance</th>
+                </tr>
+              </table>
+            </td>
+        </tr>
+        <tr data-toggle="collapse" data-target="#demo2" data-parent="#myTable">
+            <td>2</td>
+            <td>05 May 2013</td>
+            <td>Credit Account</td>
+            <td class="text-success">$11.00</td>
+            <td class="text-error"></td>
+            <td class="text-success">$161.00</td>
+        </tr>
+        <tr id="demo2" class="collapse">
+            <td colspan="6" class="hiddenRow"><div></div></td>
+        </tr>
+        <tr data-toggle="collapse" data-target="#demo3" data-parent="#myTable">
+            <td>3</td>
+            <td>05 May 2013</td>
+            <td>Credit Account</td>
+            <td class="text-success">$500.00</td>
+            <td class="text-error"></td>
+            <td class="text-success">$661.00</td>
+        </tr>
+        <tr id="demo3" class="collapse">
+            <td colspan="6" class="hiddenRow"><div>Demo3</div></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

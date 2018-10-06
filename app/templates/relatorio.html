@@ -1,0 +1,175 @@
+{% extends "home.html" %}
+
+{% block content%}
+<h4>Filtros</h4>
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Data Inicio</label>
+        {{ form.data_ini(class="form-control", type="date")}}
+
+    </div>
+    <div class="form-group col-md-6">
+      <label>Data Fim</label>
+        {{ form.data_fim(class="form-control", type="date")}}
+
+    </div>
+  </div>
+    {%if current_user.tipo_usu == "ADM" %}
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>Supervisor</label>
+        {{ form.nome_sup(class="form-control")}}
+    </div>
+      {% endif %}
+      {%if current_user.tipo_usu == "ADM" or "SUP"%}
+    <div class="form-group col-md-4">
+        <label>Equipe</label>
+        {{ form.equipe(class="form-control")}}
+    </div>
+     <div class="form-group col-md-4">
+      <label>Operador</label>
+        {{ form.nome_ope(class="form-control")}}
+    </div>
+      {% endif %}
+  </div>
+ <!--
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label>lista sup</label>
+
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div> -->
+  <button type="submit" class="btn btn-primary">Executar</button>
+</form>
+
+
+    <table class="table table-condensed"  id="myTable">
+    <thead>
+        <tr>
+            <th>Supervisor</th>
+            <th>Equipe</th>
+            <th>Pts Positivos</th>
+            <th>Pts Negativos</th>
+        </tr>
+    </thead>
+    <tbody class="panel">
+        {% for x in monitorados:%}
+        <tr data-toggle="collapse" data-target="#demo1" data-parent="#myTable">
+          <td>SUP001</td>
+          <td>Equipe A</td>
+
+          <td class="text-success">{{ x.total_ptpositivo }}</td>
+          <td class="text-error">{{ x.total_ptnegativo }}</td>
+
+        </tr>
+        <tr id="demo1" class="collapse">
+            <td colspan="6" class="hiddenRow">
+
+              <table class="table table-condensed" id="myTable2">
+                  <thead>
+                      <tr>
+                          <th>Operador</th>
+                          <th>Cód Ligação</th>
+                          <th>Pts Positivo</th>
+                          <th>Pts Negativo</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr data-toggle="collapse" data-target="#palavras" data-parent="#myTable2">
+                          <td>{{ x.cod_usu }}</td>
+                          <td>{{ x.cod_audio }}</td>
+                          <td>{{ x.total_ptpositivo }}</td>
+                          <td>{{ x.total_ptnegativo }}</td>
+                      </tr>
+                      <tr id="palavras" class="collapse">
+                            <td colspan="6" class="hiddenRow">
+
+                                <table class="table table-condensed" id="myTable3"> Palavras Ditas
+                                    <thead>
+                                    <tr>
+                                        <th>Palavras</th>
+                                        <th>Lista</th>
+                                        <th>Pontos</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for y in x.sentditas %}
+                                    <tr data-toggle="collapse" data-target="#palavrasditas" data-parent="#myTable3">
+                                        <td>{{y.sent}}</td>
+                                        <td>{{y.list}}</td>
+                                        <td>{{y.ptpositivo}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </td>
+
+                          <td colspan="6" class="hiddenRow">
+
+                                <table class="table table-condensed" id="myTable4"> Palavras Não Ditas
+                                    <thead>
+                                    <tr>
+                                        <th>Palavras</th>
+                                        <th>Lista</th>
+                                        <th>Pontos</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for y in x.sentnditas %}
+                                    <tr data-toggle="collapse" data-target="#palavrasditas" data-parent="#myTable4">
+                                        <td>{{y.sent}}</td>
+                                        <td>{{y.list}}</td>
+                                        <td>{{y.ptnegativo}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </td>
+
+                      </tr>
+
+                  </tbody>
+              </table>
+
+            </td>
+
+        </tr>
+        {% endfor %}
+
+        <tr data-toggle="collapse" data-target="#demo2" data-parent="#myTable">
+          <td>SUP001</td>
+          <td>Equipe B</td>
+          <td class="text-success">500</td>
+          <td class="text-error">-230</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

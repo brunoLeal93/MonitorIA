@@ -1,0 +1,11 @@
+<h1>Login</h1>
+<form action="/login" method="post">
+  <p>Email</p>
+  {{ form.cod_func }}
+  <p>Password</p>
+  {{ form.senha_func }}
+  {{ form.hidden_tag() }}
+  <br>
+  <br>
+  <input type="submit" value="Login">
+</form>

@@ -1,0 +1,47 @@
+    {% extends "bootstrap/base.html" %}
+    {% import "bootstrap/wtf.html" as wtf %}
+
+    {% block html_attribs %} lang="pt-br"{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-md-center">
+    <h3>MIA: MonitorIA</h3>
+    </div>
+        <div class="row justify-content-md-center">
+
+            <form class="form form-horizontal" method="post" role="form">
+
+                {{ form.csrf_token }}
+
+                <div class="form-group">
+                    {{ form.hidden_tag() }}
+                </div>
+
+                <div class="form-group">
+                    {{ wtf.form_errors(form, hiddens="only") }}
+                </div>
+
+                <div class="form-group">
+                    <label>Código Funcionário</label>
+                    {{ form.cod_func(class="form-control", placeholder="Seu Código") }}
+                </div>
+
+                <div class="form-group">
+                    <label>Senha</label>
+                    {{ form.senha_func(class="form-control") }}
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                    {{ form.lembre_me }} Lembre-Me
+                    </label>
+                </div>
+
+            <button type="submit" class="btn btn-default">Entrar</button>
+            </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+{% endblock %}

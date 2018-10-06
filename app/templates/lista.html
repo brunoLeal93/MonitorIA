@@ -1,0 +1,58 @@
+{% extends "home.html" %}
+
+{% block content%}
+<h4>Gerenciamento de Listas</h4>
+
+<form method="post" role="form">
+     {{ form.csrf_token }}
+
+    <div class="form-group">
+        {{ form.hidden_tag() }}
+    </div>
+
+    <div class="form-group">
+        {{ wtf.form_errors(form, hiddens="only") }}
+    </div>
+
+    <div class="form-row">
+
+    <div class="form-gruop col-md-6">
+        <label>Nome da Lista</label>
+        {{ form.desc_lista(class="form-control")}}
+    </div></div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>Pts. Palavras ditas:</label>
+            {{ form.ptspositivo(class="form-control", type="number") }}
+        </div>
+        <div class="form-group col-md-3">
+            <label>Pts. Palavras não ditas:</label>
+            {{ form.ptsnegativo(class="form-control", type="number") }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default" }}">Criar
+    <!--Inserir aqui função que grava valores-->
+    </button>
+</form>
+
+<table class="table table-condensed table-hover table-bordered table-responsed" id="TableLista">
+    <thead>
+        <tr>
+            <th>Lista</th>
+            <th>Pt Positivo</th>
+            <th>Pt Negativo</th>
+        </tr>
+    </thead>
+    <tbody class="painel">
+        {% for x in listas: %}
+        <tr name="{{x.id}}">
+            <td>{{x.list_desc}}</td>
+            <td>{{x.ptpositivo}}</td>
+            <td>{{x.ptnegativo}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}
