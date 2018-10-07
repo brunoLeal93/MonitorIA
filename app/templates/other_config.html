@@ -1,0 +1,38 @@
+{% extends "home.html"%}
+
+{% block content %}
+<form class="form form-horizontal" method="post" role="form">
+
+    {{ form.csrf_token }}
+
+    <div class="form-group">
+        {{ form.hidden_tag() }}
+    </div>
+
+    <div class="form-group">
+        {{ wtf.form_errors(form, hiddens="only") }}
+    </div>
+    {% for x in config:%}
+        {%if x.dir_audio == "":%}
+         <div class="form-group">
+            <label>Diretório dos Áudios</label>
+             {{ form.dirAudio(class="form-control", placeholder="Insira o caminho até o diretório que contenha os áudios") }}
+         </div>
+        {% else: %}
+
+         <div class="form-group">
+            <label>Diretório dos Áudios</label>
+             {{ form.dirAudio(class="form-control", placeholder= x.dir_audio) }}
+         </div>
+        {% endif %}
+    {% endfor%}
+    <button type="submit" class="btn btn-default">Salvar</button>
+
+</form>
+
+    {% endblock%}
+
+{% block script%}
+
+
+{% endblock script%}

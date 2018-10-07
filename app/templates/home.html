@@ -23,7 +23,7 @@
           <a class="dropdown-item" href="{{ url_for('lista')}}">Gerenciar Listas</a>
           <a class="dropdown-item" href="{{ url_for('sentenca')}}">Gerenciar Sentenças </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Definir diretório</a>
+          <a class="dropdown-item" href="{{ url_for ('config') }}">Outras configuração</a>
         </div>
       </li>
       {% endif %}

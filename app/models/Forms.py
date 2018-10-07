@@ -30,3 +30,6 @@ class listaForm(FlaskForm):
 class sentencaForm(FlaskForm):
     desc_sent = StringField("desc_palavra")
     lista = StringField("lista")
+
+class othersconfigForm(FlaskForm):
+    dirAudio = StringField("dirAudio")

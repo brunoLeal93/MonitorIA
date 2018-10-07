@@ -40,3 +40,7 @@ class Monitorados(Document):
     sentditas = ListField(EmbeddedDocumentField(sentDitas))
     sentnditas = ListField(EmbeddedDocumentField(sentNDitas))
 
+class otherConfig(Document):
+    meta = {'collection': 'outrasConfig'}
+    dir_audio = StringField(required=True)
+

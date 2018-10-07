@@ -1,8 +1,8 @@
 from flask import render_template, url_for, redirect, request
 from app import app, lm
 from flask_login import login_user, current_user
-from app.models.Forms import loginForm, listaForm, relForm, sentencaForm
-from app.models.Collections import User, Lista, Sentenca, Monitorados
+from app.models.Forms import loginForm, listaForm, relForm, sentencaForm, othersconfigForm
+from app.models.Collections import User, Lista, Sentenca, Monitorados, othersConfig
 
 
 @lm.user_loader
@@ -20,26 +20,15 @@ def login():
 
             if check_user:
                 if check_user['senha_usu'] == form.senha_func.data:
-                    # print('{}'.format(check_user))
+
                     login_user(check_user)
                     if current_user.is_authenticated:
 
-                        # if current_user.tipo_usu == "ADM":
+
                         return redirect(url_for('home'))
-
-                        # if current_user.tipo_usu == "SUP":
-                        #    return redirect(url_for('sup'))
-
-                        # if current_user.tipo_usu == "OPE":
-                        #    return redirect(url_for('ope'))
 
     return render_template('login.html', form=form)
 
-# @app.route('/insere', methods=('GET', 'POST'))
-# def insere():
-#    u = User()
-
-#    u.insereUsuario()
 
 @app.route('/home', methods=('GET', 'POST'))
 def home():
@@ -56,17 +45,10 @@ def rel():
 @app.route('/Lista', methods=('GET', 'POST'))
 def lista():
     form = listaForm()
-    # listas = consultaLista()
 
-    #listas = Lista.objects.paginate(page=page, per_page=10)
     listas = Lista.objects()
     if request.method == 'POST':
         if form.validate_on_submit():
-
-            # listaExiste = Lista.objects(desc_lista=form.desc_lista).first()
-            # if listaExiste == None:
-
-            # salvaLista = Lista(list_desc=form.desc_lista.data)
 
             salvaLista = Lista()
             salvaLista.list_desc = form.desc_lista.data
@@ -75,8 +57,7 @@ def lista():
             salvaLista.save()
 
             print(salvaLista.list_desc)
-            #print(salvaLista)
-            #salvaLista.save()
+
             return redirect('lista')
 
     select = request.args.get('x.id')
@@ -97,22 +78,21 @@ def sentenca():
             if form.validate_on_submit():
                 salvaSent = Sentenca()
                 salvaSent.lista = select
-                salvaSent.desc_palavra = form.desc_sent
+                salvaSent.desc_palavra = form.desc_sent.data
                 salvaSent.save()
 
 
     return render_template('sentenca.html', form=form, listas=listas, sentencas=sentencas)
 
 
+@app.route('/config', methods=('GET', 'POST'))
+def config():
+    form=othersconfigForm()
+    config = othersConfig.objects()
 
+    for x in config:
+        if form.validate_on_submit():
+            dir= form.dirAudio.data.replace('\\','/')
+            x.update(set__dir_audio=dir)
 
-#@app.route('/teste', methods=('GET', 'POST'))
-#def test(page=1):
-    #select = request.form.get('lista_selecionada')
-
-    #print(str(select))
-    #return (str(select))
-
-# @app.route('/todo', methods=('GET', 'POST'))
-# def todo():
-#    return render_template('index1.html')
+    return render_template('other_config.html', form=form , config=config)

@@ -49,3 +49,7 @@ class Monitorados(db.Document):
     total_ptnegativo = db.IntField(required=True)
     sentditas = db.ListField(db.EmbeddedDocumentField(sentDitas))
     sentnditas = db.ListField(db.EmbeddedDocumentField(sentNDitas))
+
+class othersConfig(db.Document):
+    meta = {'collection': 'outrasConfig'}
+    dir_audio = db.StringField(required=True)
