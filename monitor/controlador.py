@@ -28,5 +28,5 @@ def ultimoAudio(dir_audio):
 
     audio_name = vet[1]
 
-    print(audio_name)
+    return audio_name
 

@@ -1,8 +1,8 @@
 from google.cloud import storage
 storage_client = storage.Client()
-from monitor.upAudio import ultimoAudio, upload_blob
-from PLN_GS_v2 import transcribe
-from monitor import monitora
+from monitor.controlador import ultimoAudio, upload_blob
+from monitor.PLN_GS import transcribe
+from monitor.monitor import monitora
 from monitor.Collections import otherConfig
 
 config = otherConfig.objects()
